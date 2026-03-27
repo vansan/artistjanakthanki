@@ -292,7 +292,7 @@ function checkout() {
   const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
   const msg = encodeURIComponent(`Hello Swamiji,\nI would like to purchase:\n${items}\n\nTotal: ₹${total.toLocaleString('en-IN')}\n\nPlease guide me on payment & shipping.`);
   setTimeout(() => {
-    window.open(`https://wa.me/919999999999?text=${msg}`, '_blank');
+    window.open(`https://wa.me/919924444728?text=${msg}`, '_blank');
   }, 1000);
 }
 
@@ -310,7 +310,7 @@ function submitCommission(e) {
   const desc = document.getElementById('c-desc').value;
   const msg = encodeURIComponent(`Hello Swamiji,\n\nI'd like to commission an artwork.\n\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nArtwork Type: ${type}\nDescription: ${desc}\n\nPlease contact me to discuss further.`);
   showToast('Thank you! Connecting you on WhatsApp...');
-  setTimeout(() => window.open(`https://wa.me/919999999999?text=${msg}`, '_blank'), 800);
+  setTimeout(() => window.open(`https://wa.me/919924444728?text=${msg}`, '_blank'), 800);
   e.target.reset();
 }
 
