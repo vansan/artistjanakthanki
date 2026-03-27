@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adwait Art — Spiritual Art by Swami Anand Atirek | Vadodara</title>
+  <meta name="description" content="Adwait Art — Premium spiritual artworks by Swami Anand Atirek. 28 years of mastery in canvas painting, stone art, wood carving, henna, pencil sketch & digital art. Based in Vadodara.">
+  <meta name="keywords" content="spiritual art, adwait art, swami anand atirek, stone art, canvas painting, vadodara artist, henna art, wood carving, meditation art">
+  <meta property="og:title" content="Adwait Art — Art from Silence">
+  <meta property="og:description" content="Premium spiritual artworks inspired by meditation and consciousness">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="showPage('home')">
+      <span class="nav-logo-main">Adwait Art</span>
+      <span class="nav-logo-sub">Spiritual · Gallery · Store</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+      <li><a href="#" onclick="showPage('gallery')" id="nav-gallery">Gallery</a></li>
+      <li><a href="#" onclick="showPage('shop')" id="nav-shop">Shop</a></li>
+      <li><a href="#" onclick="showPage('digital')" id="nav-digital">Digital Downloads</a></li>
+      <li><a href="#" onclick="showPage('about')" id="nav-about">About</a></li>
+      <li><a href="#" onclick="showPage('commission')" id="nav-commission">Commission</a></li>
+      <li><a href="#" onclick="showPage('blog')" id="nav-blog">Blog</a></li>
+      <li><a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:16px">
+      <button id="cart-btn" class="btn btn-outline nav-cta" onclick="toggleCart()" style="position:relative">
+        🛒 Cart
+        <span class="cart-badge" id="cart-badge">0</span>
+      </button>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div id="mobile-nav">
+  <a href="#" onclick="showPage('home');toggleMobileNav()">Home</a>
+  <a href="#" onclick="showPage('gallery');toggleMobileNav()">Gallery</a>
+  <a href="#" onclick="showPage('shop');toggleMobileNav()">Shop</a>
+  <a href="#" onclick="showPage('digital');toggleMobileNav()">Digital Downloads</a>
+  <a href="#" onclick="showPage('about');toggleMobileNav()">About Artist</a>
+  <a href="#" onclick="showPage('commission');toggleMobileNav()">Commission Artwork</a>
+  <a href="#" onclick="showPage('blog');toggleMobileNav()">Blog</a>
+  <a href="#" onclick="showPage('contact');toggleMobileNav()">Contact</a>
+</div>
+
+<!-- Cart Overlay -->
+<div id="cart-overlay" onclick="toggleCart()"></div>
+
+<!-- Cart Sidebar -->
+<div id="cart-sidebar">
+  <div class="cart-header">
+    <span class="cart-title">Your Cart</span>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <div class="cart-empty">
+      <span class="cart-empty-icon">🪷</span>
+      <span>Your cart is empty</span>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cart-total">₹ 0</span>
+    </div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="checkout()">Proceed to Checkout</button>
+  </div>
+</div>
+
+<!-- Artwork Modal -->
+<div id="artwork-modal">
+  <div class="modal-backdrop" onclick="closeModal()"></div>
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <img class="modal-img" id="modal-img" src="" alt="">
+    <div class="modal-info">
+      <div class="section-label" id="modal-cat"></div>
+      <h2 class="section-title" id="modal-title" style="font-size:2rem;margin-bottom:12px"></h2>
+      <div class="gold-line"></div>
+      <p id="modal-desc" style="color:var(--stone);line-height:1.9;margin-bottom:20px"></p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:24px" id="modal-tags"></div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <div>
+          <div class="section-label">Medium</div>
+          <span id="modal-medium" style="color:var(--dark)">—</span>
+        </div>
+        <div>
+          <div class="section-label">Availability</div>
+          <span id="modal-avail" style="color:var(--dark)">—</span>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="margin-top:28px;width:100%;justify-content:center" id="modal-cart-btn">Add to Cart</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Back to Top -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to Top">↑</button>
+
+<!-- ===================== HOME PAGE ===================== -->
+<main id="home-page" class="page active">
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-fg"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-eyebrow">
+          <span class="hero-eyebrow-line"></span>
+          <span>Spiritual Artist · Vadodara</span>
+        </div>
+        <h1 class="hero-title">
+          Adwait<br>
+          <em>Art</em>
+        </h1>
+        <p class="hero-tagline">"Art from Silence — Inspired by Meditation &amp; Consciousness"</p>
+        <p class="hero-desc">
+          Swami Anand Atirek brings over 28 years of devotional artistry — 
+          from stone paintings and wood carvings to digital creations — 
+          each piece a silent prayer, a meditative offering.
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="showPage('gallery')">View Gallery</button>
+          <button class="btn btn-outline" onclick="showPage('shop')">Shop Artwork</button>
+          <button class="btn btn-gold" onclick="showPage('commission')">Request Commission</button>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num">28+</div>
+            <div class="hero-stat-label">Years of Mastery</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">67+</div>
+            <div class="hero-stat-label">Artworks Created</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">6</div>
+            <div class="hero-stat-label">Art Disciplines</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image-wrap">
+        <img class="hero-main-img" src="images/hero_artwork.png" alt="Spiritual Lotus Artwork by Adwait Art" loading="eager">
+        <div class="hero-float-card">
+          <div class="hero-float-card-label">Latest Work</div>
+          <div class="hero-float-card-text">Stone Art — Kanha ki Chhavi</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Artworks -->
+  <section id="featured">
+    <div class="container">
+      <div class="featured-header reveal">
+        <div>
+          <div class="section-label">Handpicked Works</div>
+          <h2 class="section-title">Featured Artworks</h2>
+        </div>
+        <button class="btn btn-outline" onclick="showPage('gallery')">View All Gallery →</button>
+      </div>
+      <div class="featured-grid">
+        <div class="artwork-card reveal" onclick="openModal('images/stone_art_krishna.png','Stone Art','Kanha ki Chhavi','A detailed eye of Lord Krishna with a peacock feather hand-painted on natural stone. Each line is a meditation in itself.','Stone Art','Stone Painting','Available',1800)">
+          <img src="images/stone_art_krishna.png" alt="Krishna Eye Stone Art" loading="lazy">
+          <div class="artwork-card-overlay">
+            <div class="artwork-card-title">Kanha ki Chhavi</div>
+            <div class="artwork-card-meta">Stone Art · Hand Painted</div>
+          </div>
+          <span class="artwork-badge badge-available">Available</span>
+        </div>
+        <div class="artwork-card reveal reveal-delay-1" onclick="openModal('images/meditation_art.png','Meditation Art','Chakra Consciousness','A meditating soul surrounded by glowing chakra energy. Sacred geometry and mandala patterns emerge from deep stillness.','Spiritual Art','Acrylic on Canvas','Available',4500)">
+          <img src="images/meditation_art.png" alt="Meditation Chakra Art" loading="lazy">
+          <div class="artwork-card-overlay">
+            <div class="artwork-card-title">Chakra Consciousness</div>
+            <div class="artwork-card-meta">Spiritual Art · Acrylic</div>
+          </div>
+          <span class="artwork-badge badge-available">Available</span>
+        </div>
+        <div class="artwork-card reveal reveal-delay-2" onclick="openModal('images/ram_sita_stone.png','Stone Art','Ram Darbar','Miniature portrait of Lord Ram and Mata Sita on a river stone — nature\'s canvas meets devotional art.','Stone Art','Stone Painting','Available',2800)">
+          <img src="images/ram_sita_stone.png" alt="Ram Sita Stone Art" loading="lazy">
+          <div class="artwork-card-overlay">
+            <div class="artwork-card-title">Ram Darbar</div>
+            <div class="artwork-card-meta">Stone Art · Miniature</div>
+          </div>
+          <span class="artwork-badge badge-available">Available</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section id="categories">
+    <div class="container">
+      <div class="reveal" style="text-align:center">
+        <div class="section-label" style="text-align:center">Explore by Style</div>
+        <h2 class="section-title" style="text-align:center">Art Categories</h2>
+      </div>
+      <div class="categories-grid">
+        <div class="category-item reveal" onclick="filterGallery('Stone Art');showPage('gallery')">
+          <img src="images/stone_art_krishna.png" alt="Stone Art">
+          <div class="category-item-overlay">
+            <div class="category-item-name">Stone Art</div>
+            <div class="category-item-count">Hand Painted</div>
+          </div>
+        </div>
+        <div class="category-item reveal reveal-delay-1" onclick="filterGallery('Spiritual Art');showPage('gallery')">
+          <img src="images/meditation_art.png" alt="Spiritual Art">
+          <div class="category-item-overlay">
+            <div class="category-item-name">Spiritual Art</div>
+            <div class="category-item-count">Chakra · Mandala</div>
+          </div>
+        </div>
+        <div class="category-item reveal reveal-delay-2" onclick="filterGallery('Sketches');showPage('gallery')">
+          <img src="images/sketch_art.png" alt="Pencil Sketches">
+          <div class="category-item-overlay">
+            <div class="category-item-name">Sketches</div>
+            <div class="category-item-count">Pencil · Charcoal</div>
+          </div>
+        </div>
+        <div class="category-item reveal reveal-delay-3" onclick="filterGallery('Henna Art');showPage('gallery')">
+          <img src="images/henna_art.png" alt="Henna Art">
+          <div class="category-item-overlay">
+            <div class="category-item-name">Henna Art</div>
+            <div class="category-item-count">Mehndi · Traditional</div>
+          </div>
+        </div>
+        <div class="category-item reveal reveal-delay-1" onclick="filterGallery('Wood Carving');showPage('gallery')">
+          <img src="images/wood_carving_radha.png" alt="Wood Carving">
+          <div class="category-item-overlay">
+            <div class="category-item-name">Wood Carving</div>
+            <div class="category-item-count">Hand Crafted</div>
+          </div>
+        </div>
+        <div class="category-item reveal reveal-delay-2" onclick="filterGallery('Digital Art');showPage('gallery')">
+          <img src="images/digital_mandala.png" alt="Digital Art">
+          <div class="category-item-overlay">
+            <div class="category-item-name">Digital Art</div>
+            <div class="category-item-count">Mandala · 3D</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Strip -->
+  <section id="about-strip">
+    <div class="container">
+      <div class="about-strip-inner">
+        <div class="about-strip-img reveal">
+          <img src="images/artist_profile.png" alt="Swami Anand Atirek — Adwait Art">
+        </div>
+        <div class="about-strip-text reveal delay-1">
+          <div class="section-label">The Artist</div>
+          <div class="gold-line"></div>
+          <h2 class="section-title">Swami Anand Atirek</h2>
+          <p>
+            With over 28 years of devotional practice in art, Swami Anand Atirek is a spiritual artist 
+            rooted in the rich traditions of Vadodara. His work transcends medium — whether it is a 
+            pebble, a canvas, a wooden frame, or a digital screen — every piece carries the silence of meditation.
+          </p>
+          <p>
+            Trained in Maya animation, 3D modeling, Adobe Photoshop, and AutoCAD alongside traditional 
+            canvas painting and pencil sketching, he bridges ancient devotion with modern expression.
+          </p>
+          <button class="btn btn-outline" onclick="showPage('about')">Read Full Story →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Commission Strip -->
+  <section id="commission-strip">
+    <div class="container">
+      <div class="commission-inner reveal">
+        <div class="section-label">Bespoke Artwork</div>
+        <div class="gold-line"></div>
+        <h2 class="section-title">Commission Your <em style="font-family:var(--font-serif);font-style:italic;color:var(--gold-dark)">Own Artwork</em></h2>
+        <p class="section-sub" style="margin:0 auto;">
+          Bring your vision to life. A sacred piece created just for you — 
+          on stone, canvas, wood, or digital medium.
+        </p>
+        <div class="commission-steps">
+          <div class="commission-step">
+            <div class="commission-step-num">1</div>
+            <div class="commission-step-label">Submit Request</div>
+          </div>
+          <div class="commission-step">
+            <div class="commission-step-num">2</div>
+            <div class="commission-step-label">Discuss Idea</div>
+          </div>
+          <div class="commission-step">
+            <div class="commission-step-num">3</div>
+            <div class="commission-step-label">Approve Concept</div>
+          </div>
+          <div class="commission-step">
+            <div class="commission-step-num">4</div>
+            <div class="commission-step-label">Create Artwork</div>
+          </div>
+          <div class="commission-step">
+            <div class="commission-step-num">5</div>
+            <div class="commission-step-label">Deliver Artwork</div>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="showPage('commission')">Request a Commission</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section id="newsletter">
+    <div class="container">
+      <div class="newsletter-inner">
+        <div class="newsletter-text reveal">
+          <h2 class="section-title">Stay Inspired</h2>
+          <p>New artworks, stories from the studio, and spiritual reflections — in your inbox.</p>
+        </div>
+        <form class="newsletter-form reveal reveal-delay-1" onsubmit="subscribeNewsletter(event)">
+          <input type="email" id="newsletter-email" class="search-input" style="border-radius:0;background:rgba(255,255,255,0.07);border:1px solid rgba(201,169,110,0.3);color:var(--white)" placeholder="Your email address">
+          <button type="submit" class="btn btn-gold">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== GALLERY PAGE ===================== -->
+<div id="gallery-page" class="page">
+  <div class="gallery-page-hero">
+    <div class="section-label" style="color:var(--gold);text-align:center">All Artworks</div>
+    <h1 class="section-title" style="text-align:center">The Gallery</h1>
+    <p style="color:rgba(255,255,255,0.55);max-width:500px;margin:12px auto 28px">
+      A collection of devotional artworks — each created from a place of stillness.
+    </p>
+    <div class="search-wrap">
+      <input type="text" class="search-input" id="gallery-search" placeholder="Search artworks..." oninput="searchGallery(this.value)">
+      <span class="search-icon">🔍</span>
+    </div>
+  </div>
+  <div class="gallery-filters">
+    <button class="filter-btn active" onclick="filterGallery('All',this)">All</button>
+    <button class="filter-btn" onclick="filterGallery('Stone Art',this)">Stone Art</button>
+    <button class="filter-btn" onclick="filterGallery('Spiritual Art',this)">Spiritual Art</button>
+    <button class="filter-btn" onclick="filterGallery('Sketches',this)">Sketches</button>
+    <button class="filter-btn" onclick="filterGallery('Henna Art',this)">Henna Art</button>
+    <button class="filter-btn" onclick="filterGallery('Wood Carving',this)">Wood Carving</button>
+    <button class="filter-btn" onclick="filterGallery('Digital Art',this)">Digital Art</button>
+    <button class="filter-btn" onclick="filterGallery('Available',this)">Available</button>
+  </div>
+  <div class="masonry-grid" id="masonry-grid">
+    <!-- Dynamically rendered by JS -->
+  </div>
+</div>
+
+<!-- ===================== SHOP PAGE ===================== -->
+<div id="shop-page" class="page">
+  <div class="shop-header">
+    <div class="container">
+      <div class="section-label">Original Works &amp; Prints</div>
+      <h1 class="section-title">Shop Artworks</h1>
+      <p class="section-sub">Own a piece of meditative art — original paintings, canvas prints, posters, and digital downloads.</p>
+    </div>
+  </div>
+  <div class="gallery-filters">
+    <button class="filter-btn active" onclick="filterShop('All',this)">All</button>
+    <button class="filter-btn" onclick="filterShop('Original',this)">Originals</button>
+    <button class="filter-btn" onclick="filterShop('Print',this)">Canvas Prints</button>
+    <button class="filter-btn" onclick="filterShop('Poster',this)">Posters</button>
+    <button class="filter-btn" onclick="filterShop('Digital',this)">Digital Downloads</button>
+  </div>
+  <div class="shop-grid" id="shop-grid">
+    <!-- Dynamically rendered -->
+  </div>
+</div>
+
+<!-- ===================== DIGITAL MARKETPLACE PAGE ===================== -->
+<div id="digital-page" class="page">
+  <div class="digital-hero">
+    <div class="section-label" style="color:var(--gold)">Instant Download</div>
+    <h1 class="section-title">Digital Art Marketplace</h1>
+    <p>Premium spiritual digital art — printable wall art, meditation posters, mobile wallpapers. Instant download.</p>
+  </div>
+  <div style="padding:32px 24px;max-width:var(--max-w);margin:0 auto">
+    <div class="gallery-filters" style="padding:0 0 24px">
+      <button class="filter-btn active" onclick="filterDigital('All',this)">All</button>
+      <button class="filter-btn" onclick="filterDigital('Wall Art',this)">Wall Art</button>
+      <button class="filter-btn" onclick="filterDigital('Poster',this)">Meditation Posters</button>
+      <button class="filter-btn" onclick="filterDigital('Wallpaper',this)">Wallpapers</button>
+      <button class="filter-btn" onclick="filterDigital('Bundle',this)">Bundles</button>
+    </div>
+  </div>
+  <div class="digital-grid" id="digital-grid">
+    <!-- Dynamically rendered -->
+  </div>
+</div>
+
+<!-- ===================== ABOUT PAGE ===================== -->
+<div id="about-page" class="page">
+  <div class="about-hero">
+    <div class="section-label" style="color:var(--gold)">The Artist's Story</div>
+    <h1 class="section-title">About Adwait</h1>
+  </div>
+  <div class="about-content">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image-stack">
+          <img class="about-image-main" src="images/artist_profile.png" alt="Swami Anand Atirek">
+          <img class="about-image-accent" src="images/stone_art_krishna.png" alt="Stone Art Detail">
+        </div>
+        <div class="about-text">
+          <div class="section-label">Swami Anand Atirek</div>
+          <div class="gold-line"></div>
+          <h2 class="section-title">28 Years of Devotional Art</h2>
+          <p>
+            In the ancient city of Vadodara, where art flows through every street, Swami Anand Atirek found his calling not in a studio, but in stillness. His journey as an artist began over 28 years ago — not merely as a craft, but as a spiritual practice. Each brushstroke, each carved line, each painted stone is a meditation.
+          </p>
+          <p>
+            Born of devotion, his art speaks the language of the divine. Whether it is the intricate details of Lord Krishna's eye painted on a river stone, or the sweeping sacred geometry of his digital mandalas, every creation emerges from a state of inner quiet — Adwait, or "non-dual" awareness.
+          </p>
+          <p>
+            His mastery spans multiple disciplines: traditional canvas painting, pencil and charcoal sketching, pebble and stone art, henna and mehndi, wood carving, and cutting-edge digital tools including Maya animation, 3D modeling, Photoshop, and AutoCAD. He has exhibited at MS University Vadodara and various regional exhibitions.
+          </p>
+          <p>
+            His philosophy is simple: <em>"Art is not made — it is received. The artist is merely the vessel through which silence finds its form."</em>
+          </p>
+          <div class="about-skills">
+            <div class="section-label">Skills &amp; Disciplines</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Canvas Painting</span>
+              <span class="skill-tag">Pencil Sketch</span>
+              <span class="skill-tag">Stone Art</span>
+              <span class="skill-tag">Wood Carving</span>
+              <span class="skill-tag">Henna / Mehndi</span>
+              <span class="skill-tag">Digital Art</span>
+              <span class="skill-tag">Maya Animation</span>
+              <span class="skill-tag">3D Modeling</span>
+              <span class="skill-tag">Adobe Photoshop</span>
+              <span class="skill-tag">AutoCAD</span>
+              <span class="skill-tag">Rangoli</span>
+              <span class="skill-tag">Idol Crafting</span>
+            </div>
+          </div>
+          <button class="btn btn-gold" style="margin-top:40px" onclick="showPage('commission')">Commission an Artwork</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== COMMISSION PAGE ===================== -->
+<div id="commission-page" class="page">
+  <div class="commission-hero">
+    <div class="section-label" style="color:var(--gold)">Bespoke Creation</div>
+    <h1 class="section-title">Commission an Artwork</h1>
+  </div>
+  <div class="container">
+    <div class="commission-layout">
+      <div class="commission-form-wrap">
+        <div class="commission-form">
+          <div class="section-label">Your Request</div>
+          <h2 class="section-title" style="font-size:2rem;margin-bottom:24px">Tell Me Your Vision</h2>
+          <form onsubmit="submitCommission(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Your Name *</label>
+                <input class="form-input" type="text" id="c-name" placeholder="Full name" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone / WhatsApp *</label>
+                <input class="form-input" type="tel" id="c-phone" placeholder="+91 XXXXX XXXXX" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address *</label>
+              <input class="form-input" type="email" id="c-email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Country</label>
+                <input class="form-input" type="text" id="c-country" placeholder="India">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Artwork Type *</label>
+                <select class="form-input" id="c-type" required>
+                  <option value="">Select type</option>
+                  <option>Stone / Pebble Art</option>
+                  <option>Canvas Painting</option>
+                  <option>Pencil Sketch</option>
+                  <option>Wood Carving</option>
+                  <option>Henna Design</option>
+                  <option>Digital Art</option>
+                  <option>Mandala</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Size (approx)</label>
+                <input class="form-input" type="text" id="c-size" placeholder="e.g. 12x16 inches">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Budget (₹)</label>
+                <input class="form-input" type="text" id="c-budget" placeholder="e.g. ₹ 2000 – 5000">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Description of your vision *</label>
+              <textarea class="form-input" id="c-desc" rows="5" placeholder="Describe the artwork you have in mind — deities, style, colors, mood, occasion..." required></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Reference Image (optional)</label>
+              <input class="form-input" type="file" id="c-file" accept="image/*">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:16px">Submit Commission Request</button>
+          </form>
+        </div>
+      </div>
+      <div class="commission-info-wrap">
+        <div class="section-label">How It Works</div>
+        <div class="gold-line"></div>
+        <h2 class="section-title" style="font-size:2rem">The Commission Process</h2>
+        <p class="section-sub">
+          Every commissioned artwork is a collaboration between your vision and the artist's soul. Here's how we bring it to life.
+        </p>
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="process-step-num">1</div>
+            <div class="process-step-body">
+              <h4>Submit Your Request</h4>
+              <p>Fill in the form with your vision — the more detail, the better.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-step-num">2</div>
+            <div class="process-step-body">
+              <h4>Discuss Your Idea</h4>
+              <p>Swamiji will personally connect with you via WhatsApp or email to understand your vision deeply.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-step-num">3</div>
+            <div class="process-step-body">
+              <h4>Approve the Concept</h4>
+              <p>A rough sketch or concept is shared for your approval before creation begins.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-step-num">4</div>
+            <div class="process-step-body">
+              <h4>The Artist Creates</h4>
+              <p>In meditative silence, the artwork is brought to life — with care, devotion and skill.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-step-num">5</div>
+            <div class="process-step-body">
+              <h4>Delivery & Installation</h4>
+              <p>Carefully packaged and shipped directly to your door. Physical or digital — your choice.</p>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:40px;padding:24px;background:var(--beige);border-left:3px solid var(--gold)">
+          <div class="section-label">Important Note</div>
+          <p style="font-size:0.9rem;color:var(--stone);margin-top:8px">
+            Commissions typically take 7–21 days depending on complexity. 50% advance required to begin. Refundable if concept is not approved.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== DIGITAL PAGE ===================== -->
+<!-- (Already declared above as id="digital-page") -->
+
+<!-- ===================== BLOG PAGE ===================== -->
+<div id="blog-page" class="page">
+  <div class="blog-hero">
+    <div class="container">
+      <div class="section-label">Thoughts from the Studio</div>
+      <h1 class="section-title">The Adwait Art Blog</h1>
+      <p class="section-sub">Meditations on art, spirituality, creativity, and conscious living.</p>
+    </div>
+  </div>
+  <div class="blog-grid" id="blog-grid">
+    <!-- Dynamically rendered -->
+  </div>
+</div>
+
+<!-- ===================== CONTACT PAGE ===================== -->
+<div id="contact-page" class="page">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="section-label">Get in Touch</div>
+      <div class="gold-line"></div>
+      <h1 class="section-title">Let's Connect</h1>
+      <p class="section-sub">
+        Whether you want to commission an artwork, purchase a piece, or simply share your appreciation — 
+        I would love to hear from you.
+      </p>
+      <div class="contact-methods">
+        <div class="contact-method">
+          <div class="contact-method-icon">📧</div>
+          <div>
+            <div class="contact-method-label">Email</div>
+            <div class="contact-method-value" id="contact-email-display">adwait.art@gmail.com <span style="font-size:10px;color:var(--gold);margin-left:8px">(update me)</span></div>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="contact-method-icon">📍</div>
+          <div>
+            <div class="contact-method-label">Studio</div>
+            <div class="contact-method-value">Vadodara, Gujarat, India</div>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="contact-method-icon">🕐</div>
+          <div>
+            <div class="contact-method-label">Studio Hours</div>
+            <div class="contact-method-value">Mon–Sat, 10am – 6pm IST</div>
+          </div>
+        </div>
+      </div>
+      <a href="https://wa.me/919999999999" class="whatsapp-btn" id="whatsapp-btn" target="_blank">
+        <span>💬</span> Chat on WhatsApp
+      </a>
+      <div class="contact-socials" style="margin-top:32px">
+        <a href="https://www.instagram.com/adwait.art/" target="_blank" class="social-btn" title="Instagram">📷</a>
+        <a href="mailto:adwait.art@gmail.com" class="social-btn" title="Email">✉️</a>
+      </div>
+    </div>
+    <div class="contact-form-wrap">
+      <div class="section-label">Send a Message</div>
+      <div class="gold-line"></div>
+      <h2 class="section-title" style="font-size:2.2rem">Write to Me</h2>
+      <form onsubmit="submitContact(event)" style="margin-top:32px">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Your Name *</label>
+            <input class="form-input" type="text" id="ct-name" placeholder="Full name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email *</label>
+            <input class="form-input" type="email" id="ct-email" placeholder="you@email.com" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <input class="form-input" type="text" id="ct-subject" placeholder="What is it about?">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message *</label>
+          <textarea class="form-input" id="ct-msg" rows="6" placeholder="Your message..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:16px">Send Message</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== FOOTER ===================== -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Adwait Art</div>
+        <div class="footer-brand-sub">Spiritual · Gallery · Store</div>
+        <p class="footer-brand-desc">
+          Art from silence — inspired by meditation and consciousness. 
+          A sanctuary of devotional art by Swami Anand Atirek, Vadodara.
+        </p>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigate</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="showPage('home')">Home</a></li>
+          <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
+          <li><a href="#" onclick="showPage('shop')">Shop</a></li>
+          <li><a href="#" onclick="showPage('about')">About Artist</a></li>
+          <li><a href="#" onclick="showPage('blog')">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="showPage('commission')">Commission Artwork</a></li>
+          <li><a href="#" onclick="showPage('digital')">Digital Downloads</a></li>
+          <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Follow</div>
+        <ul class="footer-links">
+          <li><a href="https://www.instagram.com/adwait.art/" target="_blank">Instagram @adwait.art</a></li>
+          <li><a href="mailto:adwait.art@gmail.com">Email Us</a></li>
+        </ul>
+        <div style="margin-top:24px;padding:16px;border:1px solid rgba(201,169,110,0.2)">
+          <div style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Newsletter</div>
+          <form onsubmit="subscribeNewsletter(event)" style="display:flex;gap:8px;flex-wrap:wrap">
+            <input type="email" placeholder="Your email" style="flex:1;min-width:140px;padding:8px 12px;background:rgba(255,255,255,0.05);border:1px solid rgba(201,169,110,0.2);color:var(--white);font-size:12px;outline:none">
+            <button type="submit" class="btn btn-gold" style="padding:8px 16px;font-size:10px">Go</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Adwait Art · Swami Anand Atirek · Vadodara, India. All rights reserved.</p>
+      <div style="display:flex;gap:16px">
+        <a href="https://www.instagram.com/adwait.art/" target="_blank" style="font-size:11px;color:rgba(255,255,255,0.3)">Instagram</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
