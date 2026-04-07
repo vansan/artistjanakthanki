@@ -254,3 +254,5 @@ If any missing data is required, the editor MUST prompt the user with a form ins
 FINAL GOAL:
 
 Create a calm, elegant, spiritual, premium artist website that automatically imports Instagram content and converts it into a structured online gallery and store.
+
+
